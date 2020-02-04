@@ -1,5 +1,6 @@
 package com.br.henriquepasquati.restful.resources;
 
+import com.br.henriquepasquati.restful.domain.Post;
 import com.br.henriquepasquati.restful.domain.User;
 import com.br.henriquepasquati.restful.dto.UserDTO;
 import com.br.henriquepasquati.restful.services.UserService;
@@ -57,6 +58,14 @@ public class UserResource {
         user.setId(id);
         user = service.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> finPosts(@PathVariable String id) {
+
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
+
     }
 
 
